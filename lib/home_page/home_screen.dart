@@ -30,8 +30,12 @@ class HomeScreen extends StatelessWidget {
                     ctr.interstitialAd!.show();
                   }
                 },
-                child: Text('Interstitial')),
-            TextButton(onPressed: () {}, child: Text('Hello')),
+                child: const Text('Interstitial')),
+            TextButton(
+                onPressed: () {
+                  ctr.rewardedAd!.show(onUserEarnedReward: (ad, reward) {});
+                },
+                child: Text('Rewarded')),
           ],
         ),
       ),

@@ -6,6 +6,8 @@ class HomeController extends GetxController {
   bool isAdLoaded = false;
   AppOpenAd? openAd;
   InterstitialAd? interstitialAd;
+  RewardedAd ? rewardedAd;
+
 
   @override
   void onInit() {
@@ -78,12 +80,24 @@ class HomeController extends GetxController {
   void onAdLoaded(InterstitialAd ad) {
     interstitialAd = ad;
     isAdLoaded = true;
-    interstitialAd!.fullScreenContentCallback =
-        FullScreenContentCallback(onAdDismissedFullScreenContent: (ad) {
-      interstitialAd!.dispose();
-    }, onAdFailedToShowFullScreenContent: (ad, error) {
-      interstitialAd!.dispose();
-    });
+    interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
+      onAdDismissedFullScreenContent: (ad) {
+        interstitialAd!.dispose();
+      },
+      onAdFailedToShowFullScreenContent: (ad, error) {
+        interstitialAd!.dispose();
+      },
+    );
+  }
+
+  rewardAd() {
+    RewardedAd.load(
+        adUnitId: RewardedAd.testAdUnitId,
+        request: AdRequest(),
+        rewardedAdLoadCallback: RewardedAdLoadCallback(
+            onAdLoaded: (ad) {
+              isAdLoaded = true;
+            },
+            onAdFailedToLoad: (error) {}));
   }
 }
-///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
